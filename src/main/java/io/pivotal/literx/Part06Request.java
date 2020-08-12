@@ -28,9 +28,9 @@ public class Part06Request {
 
     // TODO Create a StepVerifier that initially requests 1 value and expects User.SKYLER then requests another value and expects User.JESSE then stops verifying by cancelling the source
     StepVerifier requestOneExpectSkylerThenRequestOneExpectJesse(Flux<User> flux) {
-        return StepVerifier.create(flux)
-                .expectNextCount(1)
+        return StepVerifier.create(flux, 1)
                 .expectNext(User.SKYLER)
+				.thenRequest(1)
                 .expectNext(User.JESSE)
                 .thenCancel();
     }
@@ -39,8 +39,9 @@ public class Part06Request {
 
     // TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
     Flux<User> fluxWithLog() {
-        return repository.findAll()
-                .doOnEach(u -> System.out.println(u));
+//        return repository.findAll()
+//                .doOnEach(u -> System.out.println(u));
+		return repository.findAll().log();
     }
 
 //========================================================================================

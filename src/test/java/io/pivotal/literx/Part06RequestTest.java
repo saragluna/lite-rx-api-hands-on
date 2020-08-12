@@ -74,16 +74,17 @@ public class Part06RequestTest {
 				.verifyComplete();
 
 		String log = logConsole.toString().replaceAll(threadInfos, "");
+		String lineSeparator = System.lineSeparator();
 		assertThat(log)
-				.contains("onSubscribe(FluxZip.ZipCoordinator)\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})\n"
-						+ "request(2)\n"
-						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})\n"
-						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})\n"
-						+ "onComplete()\n");
+				.contains("onSubscribe(FluxZip.ZipCoordinator)" + lineSeparator
+						+ "request(1)" + lineSeparator
+						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})" + lineSeparator
+						+ "request(1)" + lineSeparator
+						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})" + lineSeparator
+						+ "request(2)" + lineSeparator
+						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})" + lineSeparator
+						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})" + lineSeparator
+						+ "onComplete()" + lineSeparator);
 	}
 
 //========================================================================================
@@ -95,13 +96,15 @@ public class Part06RequestTest {
 				.expectNextCount(4)
 				.verifyComplete();
 
+		String lineSeparator = System.lineSeparator();
+
 		assertThat(logConsole.toString())
-				.isEqualTo("Starring:\n"
-						+ "Skyler White\n"
-						+ "Jesse Pinkman\n"
-						+ "Walter White\n"
-						+ "Saul Goodman\n"
-						+ "The end!\n");
+				.contains("Starring:" + lineSeparator
+						+ "Skyler White" + lineSeparator
+						+ "Jesse Pinkman" + lineSeparator
+						+ "Walter White" + lineSeparator
+						+ "Saul Goodman" + lineSeparator
+						+ "The end!" + lineSeparator);
 	}
 
 }
